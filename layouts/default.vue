@@ -77,6 +77,7 @@ export default {
   }
 }
 </script>
+
 <style>
 #app {
   font-family: 'Kanit', sans-serif;

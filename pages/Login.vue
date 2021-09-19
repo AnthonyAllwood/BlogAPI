@@ -33,7 +33,7 @@
 
 export default {
   name: 'Login',
-  data () {
+ data () {
     return {
       login: {}
     }
@@ -48,7 +48,6 @@ export default {
         .then(
           res => {
             console.log(res)
-            this.$router.push('/profile')
           }
         ).catch(
           err => {

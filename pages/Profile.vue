@@ -1,7 +1,7 @@
 <template>
         <div class="container">
             <div v-for="(post, index) in posts" :key="post._id">
-                    <div class="card center">
+                    <div class="card">
                         <div class="card-header">
                             {{post.title}}
                         </div>
@@ -15,7 +15,7 @@
                             Update
                             </button>
 
-                            <!--Modal-->
+                            <!-- Modal -->
                             <div class="modal fade" id="updatepostModal" tabindex="-1" aria-labelledby="updatepostModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -55,7 +55,7 @@
                     </div>
             </div>
             <Newpost @newPost="newPost" />
-        </div>  
+        </div>
 </template>
 
 <script>
