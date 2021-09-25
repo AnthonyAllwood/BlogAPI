@@ -10,20 +10,22 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet',  href: '../static/style.css' }, // CSS stylesheet
+      { rel: 'stylesheet',  href: './static/style.css' }, // CSS stylesheet
       { rel: 'stylesheet',  href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' }, // Bootstrap CSS
       { rel: 'stylesheet',  href: 'https://use.fontawesome.com/releases/v5.3.1/css/all.css' }, // Font Awesome
       { rel: 'stylesheet',  href: 'https://fonts.googleapis.com/css?family=Kanit&display=swap' } // Kanit font
+      //{ rel: 'stylesheet',  href: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css' } //Bootstrap Star Rating
 
     ], 
     script: [
       { src: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"} // Bootstrap Javascript
+      // { src: "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"} // Star Rating
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '../static/style.css'
+    './static/style.css'
   ],
 
   server: {
@@ -43,16 +45,19 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/bootstrap
-   // 'bootstrap-vue/nuxt',
+    //https://go.nuxtjs.dev/bootstrap
+    'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/auth-next'// library for user authentication and storing token in the browser
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  //Update axios config below
+  axios: {
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -63,5 +68,28 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: 'http://localhost:3000/api/auth/login', method: 'post' },
+          // logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: 'http://localhost:3000/api/auth/user', method: 'get' }
+        }
+      }
+    }
   }
+
 }

@@ -1,7 +1,9 @@
 <template>
-        <div class="container">
+        <div class="container" v-if="$auth.$state.loggedIn">
+            <h2>Welcome, {{$auth.$state.user.firstname}} !</h2>
+            <a href="#" @click="logoutUser">Logout</a>
             <div v-for="(post, index) in posts" :key="post._id">
-                    <div class="card">
+                    <div class="card profile-card">
                         <div class="card-header">
                             {{post.title}}
                         </div>
@@ -15,7 +17,7 @@
                             Update
                             </button>
 
-                            <!-- Modal -->
+                            <!-- Update Post Modal -->
                             <div class="modal fade" id="updatepostModal" tabindex="-1" aria-labelledby="updatepostModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -51,10 +53,16 @@
                               </div>
                             </div>
                             <button type="button" @click="$emit('removePost', index)" class="btn btn-danger btn-sm" >Remove</button>
+                            <nuxt-link :to="`/posts/${post._id}`" class="btn btn-warning">View Comms</nuxt-link>
                         </div>
                     </div>
             </div>
             <Newpost @newPost="newPost" />
+        </div>
+        <div class="container" v-else>
+          <h1>Register and Join the A1 Community! </h1>
+          <nuxt-link to="/register">Register</nuxt-link>
+          <h2>Create a Beautiful Profile! And share your knowledge, reactions, and personal ideas!</h2>
         </div>
 </template>
 
@@ -72,6 +80,10 @@ export default {
   },
   components: { Newpost },
   methods: {
+    //Logout user by clearing all tokens in local storage, cookies, and vuex
+    async logoutUser () {
+      await this.$auth.logout();
+    },
     // Use this method to get posts from the database
     getPosts: async function () {
       this.posts = await fetch('http://localhost:3000/api/posts/all')

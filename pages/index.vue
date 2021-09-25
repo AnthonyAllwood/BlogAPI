@@ -48,6 +48,9 @@
                     </div>
                 </div>
             </div>
+            <div class="container">
+            <h3>{{$auth.$state.loggedIn}}</h3>
+            </div>
         </div>
       </div>
 </template>
